@@ -26,13 +26,16 @@ pub enum HarnessId {
     /// Meta's Muse Code agent, driven natively over the Muse Session Protocol
     /// (MSP: `muse` speaking JSON-RPC on stdio).
     Muse,
+    /// Oh My Pi (omp.sh), the Pi fork, driven over its native JSONL RPC
+    /// dialect (`omp --mode rpc-ui`).
+    Omp,
     /// Test harness; never shown in production pickers.
     Mock,
 }
 
 impl HarnessId {
     /// Every harness, in declaration order.
-    pub const ALL: [HarnessId; 11] = [
+    pub const ALL: [HarnessId; 12] = [
         HarnessId::ClaudeCode,
         HarnessId::Codex,
         HarnessId::Cursor,
@@ -43,6 +46,7 @@ impl HarnessId {
         HarnessId::Opencode,
         HarnessId::Antigravity,
         HarnessId::Muse,
+        HarnessId::Omp,
         HarnessId::Mock,
     ];
 
@@ -59,6 +63,7 @@ impl HarnessId {
             HarnessId::Opencode => "opencode",
             HarnessId::Antigravity => "antigravity",
             HarnessId::Muse => "muse",
+            HarnessId::Omp => "omp",
             HarnessId::Mock => "mock",
         }
     }
@@ -564,7 +569,8 @@ pub const VISUAL_MAX_TOTAL_ASSET_BYTES: usize = 10 * 1024 * 1024;
 // assets base64-encoded; that message must fit the engine's 16 MiB frame
 // (tungstenite's default), with room for the script escaped as JSON.
 const _: () = assert!(
-    VISUAL_MAX_TOTAL_ASSET_BYTES.div_ceil(3) * 4 + VISUAL_MAX_BYTES * 6 + 64 * 1024 < 16 * 1024 * 1024
+    VISUAL_MAX_TOTAL_ASSET_BYTES.div_ceil(3) * 4 + VISUAL_MAX_BYTES * 6 + 64 * 1024
+        < 16 * 1024 * 1024
 );
 
 /// Whether `name` can name a visual's asset: a plain file name.

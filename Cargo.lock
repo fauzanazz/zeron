@@ -13710,6 +13710,7 @@ dependencies = [
  "futures",
  "libc",
  "reqwest",
+ "rusqlite",
  "semver",
  "serde",
  "serde_json",
